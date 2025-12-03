@@ -5,12 +5,12 @@ import { RiQuestionLine } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { RiGeminiFill } from "react-icons/ri";
 import { CgMenuGridO } from "react-icons/cg";
+import Avatar from "react-avatar";
 
 const Header = () => {
     return (
-
-        <header className='bg-[#F8FAFD]'>
-            <nav className='flex items-center justify-between h-16 mx-auto max-w-[1300px] '>
+        <header>
+            <nav className='flex items-center justify-between h-16 mx-auto max-w-[1340px] px-3 '>
                 <div className='flex items-center gap-10'>
                     <div className='flex items-center gap-2'>
                         <div className='p-3 rounded-full hover:bg-gray-100 cursor-pointer'>
@@ -20,7 +20,7 @@ const Header = () => {
                         <h1 className='text-2xl text-gray-600 font-medium'>Gmail</h1>
                     </div>
                 </div>
-                <div className='md:block hidden w-[50%] mr-10'>
+                <div className='md:block  hidden w-[50%] mr-10 md:mx-6'>
                     <div className='flex items-center bg-[#E9EEF6] px-2 py-3 rounded-full'>
                         <IoIosSearch size={"24px"} className='text-gray-700' />
                         <input type="text"
@@ -42,6 +42,16 @@ const Header = () => {
                         </div>
                         <div className='p-3 rounded-full hover:bg-gray-100 cursor-pointer'>
                             <CgMenuGridO size={"24px"} className='text-gray-600' />
+                        </div>
+                        <div className='cursor-pointer'>
+                            <Avatar
+                                name="Remy Sharp"
+                                size="40"
+                                round={true}
+                                src="https://www.nicepng.com/png/full/182-1829287_cammy-lin-ux-designer-circle-picture-profile-girl.png"
+                                 
+                            />
+
                         </div>
                     </div>
                 </div>
