@@ -6,16 +6,36 @@ import { IoMdSettings } from "react-icons/io";
 import { RiGeminiFill } from "react-icons/ri";
 import { CgMenuGridO } from "react-icons/cg";
 import Avatar from "react-avatar";
-import { useDispatch } from 'react-redux';
-import { setSearchText } from '../../Redux/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchText, setUser } from '../../Redux/appSlice';
+import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { auth } from '../../Firebase/firebase';
+import { signOut } from 'firebase/auth';
 
 const Header = () => {
+    const [toggle, setToggle] = useState(false);
+
+
     const [input, setInput] = useState("");
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-     dispatch(setSearchText(input))
-    },[input])
+    const {user} = useSelector(store=>store.appSlice)
+
+    const handleSignOut = () => {
+        signOut(auth).then(()=>{
+            dispatch(setUser(null));
+        }).catch((error)=>{
+            console.log(error);
+            
+        })
+    }
+
+    useEffect(() => {
+        dispatch(setSearchText(input))
+    }, [input])
+
+
     return (
         <header>
             <nav className='flex items-center justify-between h-16 mx-auto max-w-[1340px] px-3 '>
@@ -53,15 +73,29 @@ const Header = () => {
                         <div className='p-3 rounded-full hover:bg-gray-100 cursor-pointer'>
                             <CgMenuGridO size={"24px"} className='text-gray-600' />
                         </div>
-                        <div className='cursor-pointer'>
-                            <Avatar
+                        <div className='cursor-pointer relative'>
+                            <Avatar onClick={() => setToggle(!toggle)}
                                 name="Remy Sharp"
                                 size="40"
                                 round={true}
-                                src="https://www.nicepng.com/png/full/182-1829287_cammy-lin-ux-designer-circle-picture-profile-girl.png"
+                                src={user?.photoURL}
 
                             />
+                            <AnimatePresence>
+                                {
+                                    toggle && (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.6 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.6 }}
+                                            transition={{ type: 'spring', stiffness: 260, damping: 20, duration: 0.2 }}
+                                            className='absolute right-2 z-20 shadow-lg bg-white rounded-md'>
+                                            <p onClick={handleSignOut} className='p-2 underline'>LogOut</p>
 
+                                        </motion.div>
+                                    )
+                                }
+                            </AnimatePresence>
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import Inbox from './components/Inbox';
 import Mail from './components/Mail';
 import SendEmail from './components/SendEmail/SendEmail';
 import Login from './components/Login';
+import { useSelector } from 'react-redux';
 
 const router = createBrowserRouter([{
   path: "/",
@@ -24,7 +25,7 @@ const router = createBrowserRouter([{
 }])
 
 const App = () => {
-  const user = false
+  const {user} = useSelector(store=>store.appSlice)
   return (
     <div className='bg-[#F8FAFD] h-screen w-screen overflow-hidden'>
       {/* Navbar component */}
