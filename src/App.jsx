@@ -5,30 +5,42 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Body from './components/Body';
 import Inbox from './components/Inbox';
 import Mail from './components/Mail';
+import SendEmail from './components/SendEmail/SendEmail';
+import Login from './components/Login';
 
 const router = createBrowserRouter([{
   path: "/",
-  element:<Body/>,
-  children:[
+  element: <Body />,
+  children: [
     {
-      path:'/',
-      element:<Inbox/>
+      path: '/',
+      element: <Inbox />
     },
     {
-      path:'/mail/:id',
-      element:<Mail/>
+      path: '/mail/:id',
+      element: <Mail />
     }
   ]
 }])
 
 const App = () => {
+  const user = false
   return (
-     <div className='bg-[#F8FAFD] h-screen w-screen overflow-hidden'>
+    <div className='bg-[#F8FAFD] h-screen w-screen overflow-hidden'>
       {/* Navbar component */}
-      <Header/>
-       
-        <RouterProvider router={router}/>   
-     </div>
+      {
+        !user ? (<Login />) : (
+          <>
+            <Header />
+            <RouterProvider router={router} />
+            <div className='absolute w-[30%] bottom-0 right-20 z-10'>
+              <SendEmail />
+            </div>
+          </>
+        )
+      }
+
+    </div>
   )
 }
 

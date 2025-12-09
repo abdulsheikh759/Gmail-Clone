@@ -7,6 +7,8 @@ import { AiOutlineSend } from "react-icons/ai";
 import { GoPaste } from "react-icons/go";
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { IoIosArrowDown } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { setOpen } from '../Redux/appSlice';
 
 const slidebarItems = [
     { icon: <MdInbox size={"20px"} />, title: "Inbox" },
@@ -21,10 +23,13 @@ const slidebarItems = [
 const MenuSideBar = () => {
     const [selected, setSelected] = useState(0);
 
+    // const [open, setOpen] = useState(false);// this is local state vairable
+    const dispatch = useDispatch()
+
     return (
         <div className='w-[20%]'>
             <div className='p-3'>
-                <button className='flex items-center gap-3 p-4 px-5 rounded-2xl hover:shadow-md bg-[#C2E7FF] cursor-pointer font-semibold'>
+                <button onClick={()=> dispatch(setOpen(true))} className='flex items-center gap-3 p-4 px-5 rounded-2xl hover:shadow-md bg-[#C2E7FF] cursor-pointer font-semibold'>
                     <GoPencil size={"24px"} />
                     Compose</button>
             </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoIosSearch } from "react-icons/io";
 import { RiQuestionLine } from "react-icons/ri";
@@ -6,8 +6,16 @@ import { IoMdSettings } from "react-icons/io";
 import { RiGeminiFill } from "react-icons/ri";
 import { CgMenuGridO } from "react-icons/cg";
 import Avatar from "react-avatar";
+import { useDispatch } from 'react-redux';
+import { setSearchText } from '../../Redux/appSlice';
 
 const Header = () => {
+    const [input, setInput] = useState("");
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+     dispatch(setSearchText(input))
+    },[input])
     return (
         <header>
             <nav className='flex items-center justify-between h-16 mx-auto max-w-[1340px] px-3 '>
@@ -24,6 +32,8 @@ const Header = () => {
                     <div className='flex items-center bg-[#E9EEF6] px-2 py-3 rounded-full'>
                         <IoIosSearch size={"24px"} className='text-gray-700' />
                         <input type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
                             placeholder='Search Mail'
                             className='rounded-full w-full bg-transparent outline-none px-2 text-black  placeholder:text-black/70 placeholder:font-semibold '
                         />
@@ -49,7 +59,7 @@ const Header = () => {
                                 size="40"
                                 round={true}
                                 src="https://www.nicepng.com/png/full/182-1829287_cammy-lin-ux-designer-circle-picture-profile-girl.png"
-                                 
+
                             />
 
                         </div>
